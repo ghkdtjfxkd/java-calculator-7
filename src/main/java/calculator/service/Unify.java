@@ -1,6 +1,7 @@
 package calculator.service;
 
 import calculator.repository.DelimiterRepository;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Unify {
@@ -8,17 +9,14 @@ public class Unify {
     private static String expression;
     private static List<String> delimiters;
 
-    private Unify(String input, List<String> delims) {
-        expression = input;
-        delimiters = delims;
+
+    public static void setting (String essential, List<String> elements) {
+        expression = essential;
+        delimiters = new ArrayList<>(elements);
     }
 
-    private static void initSetting(String expression, List<String> delimiters) {
-        new Unify(expression, delimiters);
-    }
-
-    public static String allDelimiters (String expression, List<String> delimiters) {
-        initSetting(expression, delimiters);
+    public static String allDelimiters (String essential, List<String> delimiters) {
+        setting(essential, delimiters);
         for (String delimiter : delimiters) {
             expression = unifyDelimiter(delimiter);
         }
@@ -26,6 +24,6 @@ public class Unify {
     }
 
     private static String unifyDelimiter (String delimiter) {
-        return expression.replace(delimiter,delimiters.getFirst());
+        return expression.replaceAll(delimiter,delimiters.getFirst());
     }
 }

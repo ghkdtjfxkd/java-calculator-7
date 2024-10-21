@@ -1,5 +1,7 @@
 package calculator.domain;
 
+import java.util.Optional;
+
 public class UserExpression {
 
     private String rawExpression;
@@ -17,6 +19,10 @@ public class UserExpression {
     public void setDivideValues (String candidate, String essential) {
         customDelimExpressionCandidate = candidate;
         EssentialExpression = essential;
+    }
+
+    public void setCustomDelimExpressionCandidate(String customDelimExpressionCandidate) {
+        this.customDelimExpressionCandidate = customDelimExpressionCandidate;
     }
 
     public void setEssentialExpression (String essentialExpression) {

@@ -16,10 +16,10 @@ public class ExpressionService {
         this.delimiterRepository = delimiterRepository;
     }
 
-    public UserExpression divide() {
-        return UserExpressionDivide.complete(userExpression);
-    }
-//
+//    public UserExpression divide() {
+//        return UserExpressionDivide.complete(userExpression);
+//    }
+////
 //    public UserExpression customDelimTreat () {
 //        if(!userExpression.getEssentialExpression().isEmpty()) {
 //            userExpression.getCustomDelimExpressionCandidate();

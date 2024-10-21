@@ -1,8 +1,17 @@
 package calculator.domain;
 
 import calculator.domain.constant.CustomDelimBracket;
+import calculator.domain.constant.Unit;
 
 public class CustomDelimVerify {
+
+    public static Boolean exist(String candidate) {
+        return suitableLength(candidate) && coveredBracket(candidate);
+    }
+
+    private static Boolean suitableLength(String candidate) {
+        return candidate.length() >= Unit.MIN_CUSTOM_DELIM_LENGTH.getValue();
+    }
 
     public static Boolean coveredBracket(String candidate) {
         return correctOpenBracket(candidate)

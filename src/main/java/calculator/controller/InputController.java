@@ -6,16 +6,21 @@ import calculator.view.Users;
 
 public class InputController {
 
-    private static InputService inputService;
+    private UserExpression userExpression;
 
-    public static void init() {
-        inputService = new InputService();
-        input();
-        System.out.println(UserExpression.getRawExpression());
+
+    public UserExpression input() {
+        comesNewInput();
+        return userExpression;
     }
 
-    private static void input() {
-        String newInput = Users.input();
-        inputService.comesNewInput(newInput);
+    public void comesNewInput() {
+        userExpression = new UserExpression(filterVacantInput());
     }
+
+    private String filterVacantInput() {
+        String input = Users.input();
+        return input.isEmpty() ? "0" : input;
+    }
+
 }

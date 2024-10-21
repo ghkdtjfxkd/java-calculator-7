@@ -2,15 +2,18 @@ package calculator.domain;
 
 import java.util.Arrays;
 import java.util.List;
-import javax.lang.model.util.Elements;
 
 public class Prep {
 
-    private static List<String> diceElements (String input, String delimiter) {
-        return Arrays.stream(input.split(delimiter)).toList();
+    public static List<String> dissection (String input) {
+        return Arrays.stream(input.split("")).toList();
     }
 
-    public static List<Long> convertToNumbers(String input, String delimiter) {
-        return diceElements(input, delimiter).stream().map(Long::parseLong).toList();
+    public static List<String> dicedChunk(String input, String delimiter) {
+        return Arrays.stream(input.split(delimiter)).filter(s ->!s.isEmpty()).toList();
+    }
+
+    public static List<Long> convertToNumbers(List<String> dicedExpression) {
+        return dicedExpression.stream().map(Long::parseLong).toList();
     }
 }

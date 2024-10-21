@@ -5,38 +5,55 @@ import calculator.domain.constant.Unit;
 public class UserExpressionDivide {
 
     private static UserExpression userExpression;
-    private static String raw;
-    private static int minCustomDelimLength;
+    private static String rawExpression;
+    private static String candidate;
+    private static String remainingPart;
+    private static final int minCustomDelimLength = Unit.MIN_CUSTOM_DELIM_LENGTH.getValue();
 
-    private UserExpressionDivide(UserExpression inputExpression) {
-        userExpression = inputExpression;
-        raw = userExpression.getRawExpression();
-        minCustomDelimLength = Unit.MIN_CUSTOM_DELIM_LENGTH.getValue();
-    }
 
-    public static UserExpression complete(UserExpression expression) {
-        new UserExpressionDivide(expression);
-        divideExpression();
-        return expression;
-    }
-
-    private static Boolean enoughLength() {
-        return raw.length() >= minCustomDelimLength;
-    }
-
-    private static void divideExpression() {
-        setEssential();
-        if(enoughLength()){
-            setDivide();
+    public static void dividePart(UserExpression expression) {
+        setting(expression);
+        if(enoughLengthToDivide(rawExpression)) {
+            assignCandidate(rawExpression);
+            assignRemainingPart(rawExpression);
         }
     }
 
-    private static void setDivide() {
-        userExpression.setDivideValues(raw.substring(Unit.START.getValue(), minCustomDelimLength)
-                , raw.substring(minCustomDelimLength, raw.length()));
+    private static void setting(UserExpression expression) {
+        userExpression = expression;
+        rawExpression = userExpression.getRawExpression();
+        candidate = rawExpression;
+        remainingPart = rawExpression;
     }
 
-    private static void setEssential () {
-        userExpression.setEssentialExpression(raw);
+    private static Boolean enoughLengthToDivide(String rawExpression) {
+        return rawExpression.length() >= minCustomDelimLength;
+    }
+
+    private static void assignCandidate(String rawExpression) {
+        candidate = rawExpression.substring(0,minCustomDelimLength);
+        System.out.println(candidate);
+    }
+
+    private static void assignRemainingPart(String rawExpression) {
+        remainingPart = rawExpression.replace(candidate, "");
+        onlyCustomDelimExistInRawExpression();
+    }
+
+    private static void onlyCustomDelimExistInRawExpression() {
+        if(remainingPart.isEmpty()) {
+            remainingPart = "0";
+        }
+    }
+
+    public static UserExpression setDivideForCustomDelim() {
+        userExpression.setCustomDelimExpressionCandidate(candidate);
+        userExpression.setEssentialExpression(remainingPart);
+        return userExpression;
+    }
+
+    public static UserExpression setDivideCustomDelimDisappear() {
+        userExpression.setEssentialExpression(rawExpression);
+        return userExpression;
     }
 }

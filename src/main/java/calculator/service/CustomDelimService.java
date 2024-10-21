@@ -11,7 +11,6 @@ public class CustomDelimService {
 
     public CustomDelimService(String candidate) {
         if(CustomDelimVerify.coveredBracket(candidate)) {
-            CustomDelim.setStatus(Boolean.TRUE);
             coveredDelim = candidate;
         }
     }

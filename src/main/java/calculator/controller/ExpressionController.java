@@ -7,7 +7,7 @@ import calculator.domain.UserExpression;
 import calculator.domain.UserExpressionDivide;
 import calculator.domain.Validation;
 import calculator.repository.DelimiterRepository;
-import calculator.service.Unify;
+import calculator.domain.Unify;
 import java.util.List;
 
 public class ExpressionController {
@@ -22,26 +22,24 @@ public class ExpressionController {
         customDelimProcess();
         String unified = unifyAllDelim(userExpression.getEssentialExpression(),
                 delimiterRepository.getDelimiters());
-        System.out.println(unified);
-        System.out.println(delimiterRepository.getDelimiters());
         return prepExpressionDiced(unified);
     }
 
     private void customDelimProcess() {
-        userExpression = UserExpressionDivide.setDivideCustomDelimDisappear();
+        userExpression= UserExpressionDivide.setDivideCustomDelimDisappear();
         if(CustomDelimVerify.exist(userExpression.getCustomDelimExpressionCandidate())){
             customDelimTreatment(userExpression.getCustomDelimExpressionCandidate());
-            userExpression = UserExpressionDivide.setDivideForCustomDelim();
         }
     }
 
     private void divideUserExpression() {
         UserExpressionDivide.dividePart(userExpression);
-        userExpression = UserExpressionDivide.setDivideForCustomDelim();
     }
 
     private void customDelimTreatment(String customDelimCandidate) {
         delimiterRepository.addDelimiters(new CustomDelim(customDelimCandidate).getDelim());
+        userExpression.setEssentialExpression(userExpression.getRawExpression()
+                .replace(userExpression.getCustomDelimExpressionCandidate(), ""));
     }
 
     private String unifyAllDelim(String essenceExpression, List<String> delimiters) {

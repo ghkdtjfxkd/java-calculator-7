@@ -6,10 +6,14 @@ public class UserExpressionDivide {
 
     private static UserExpression userExpression;
     private static String rawExpression;
-    private static String candidate;
-    private static String remainingPart;
     private static final int minCustomDelimLength = Unit.MIN_CUSTOM_DELIM_LENGTH.getValue();
 
+    private static void setting(UserExpression expression) {
+        userExpression = expression;
+        rawExpression = userExpression.getRawExpression();
+        userExpression.setCustomDelimExpressionCandidate(rawExpression);
+        userExpression.setEssentialExpression(rawExpression);
+    }
 
     public static void dividePart(UserExpression expression) {
         setting(expression);
@@ -19,41 +23,28 @@ public class UserExpressionDivide {
         }
     }
 
-    private static void setting(UserExpression expression) {
-        userExpression = expression;
-        rawExpression = userExpression.getRawExpression();
-        candidate = rawExpression;
-        remainingPart = rawExpression;
-    }
-
     private static Boolean enoughLengthToDivide(String rawExpression) {
         return rawExpression.length() >= minCustomDelimLength;
     }
 
     private static void assignCandidate(String rawExpression) {
-        candidate = rawExpression.substring(0,minCustomDelimLength);
-        System.out.println(candidate);
+        userExpression.setCustomDelimExpressionCandidate(rawExpression.substring(0,minCustomDelimLength));
     }
 
     private static void assignRemainingPart(String rawExpression) {
-        remainingPart = rawExpression.replace(candidate, "");
+        userExpression.setEssentialExpression(rawExpression
+                        .replace(userExpression.getCustomDelimExpressionCandidate(),""));
         onlyCustomDelimExistInRawExpression();
     }
 
     private static void onlyCustomDelimExistInRawExpression() {
-        if(remainingPart.isEmpty()) {
-            remainingPart = "0";
+        if(userExpression.getEssentialExpression().isEmpty()) {
+            userExpression.setEssentialExpression("0");
         }
     }
 
-    public static UserExpression setDivideForCustomDelim() {
-        userExpression.setCustomDelimExpressionCandidate(candidate);
-        userExpression.setEssentialExpression(remainingPart);
-        return userExpression;
-    }
-
     public static UserExpression setDivideCustomDelimDisappear() {
-        userExpression.setEssentialExpression(rawExpression);
+        userExpression.setEssentialExpression(userExpression.getRawExpression());
         return userExpression;
     }
 }

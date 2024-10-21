@@ -16,11 +16,6 @@ public class UserExpression {
         return rawExpression;
     }
 
-    public void setDivideValues (String candidate, String essential) {
-        customDelimExpressionCandidate = candidate;
-        EssentialExpression = essential;
-    }
-
     public void setCustomDelimExpressionCandidate(String customDelimExpressionCandidate) {
         this.customDelimExpressionCandidate = customDelimExpressionCandidate;
     }

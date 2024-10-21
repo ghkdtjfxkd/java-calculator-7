@@ -1,13 +1,11 @@
 package calculator.controller;
 
 import calculator.domain.UserExpression;
-import calculator.service.InputService;
 import calculator.view.Users;
 
 public class InputController {
 
     private UserExpression userExpression;
-
 
     public UserExpression input() {
         comesNewInput();

@@ -2,12 +2,10 @@ package calculator.domain;
 
 public class CustomDelim {
 
-    private String candidate;
-    private String delim;
+    private final String delim;
 
     public CustomDelim(String input) {
-        candidate = input;
-        delim = CustomDelimExtract.getEssence(candidate);
+        delim = CustomDelimExtract.getEssence(input);
     }
 
     public String getDelim() {

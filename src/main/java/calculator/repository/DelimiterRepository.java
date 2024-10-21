@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DelimiterRepository {
 
-    private List<String> delimiters;
+    private final List<String> delimiters;
 
     public DelimiterRepository() {
         delimiters = new ArrayList<>();
@@ -18,8 +18,8 @@ public class DelimiterRepository {
     }
 
     public void addDelimiters(String delim) {
+        delimiters.add("test");
         delimiters.add(delim);
-
     }
 
 }

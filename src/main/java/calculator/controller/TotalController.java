@@ -20,7 +20,7 @@ public class TotalController {
     public static void init() {
         input();
         prepExpressionAndCalc();
-        outPutPrint();
+        outputPrint();
     }
 
     private static void input() {
@@ -32,9 +32,7 @@ public class TotalController {
         calcController.init(prepToSend);
     }
 
-    private static void outPutPrint() {
+    private static void outputPrint() {
         Users.resultOfMatchingOutputFormat(calcController.calcTheNumbers());
     }
-
-
 }
